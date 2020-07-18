@@ -1,1 +1,3 @@
-# ADS_Mich_1
+Platform: Coursera
+Specialization: Applied Data Science With Python
+Course: Introduction To Data Science in Python
