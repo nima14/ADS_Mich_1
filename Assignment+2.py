@@ -14,7 +14,7 @@
 # 
 # The columns are organized as # of Summer games, Summer medals, # of Winter games, Winter medals, total # number of games, total # of medals. Use this dataset to answer the questions below.
 
-# In[48]:
+# In[2]:
 
 
 import pandas as pd
@@ -138,7 +138,7 @@ answer_four()
 # 
 # *This function should return a single string value.*
 
-# In[129]:
+# In[4]:
 
 
 census_df = pd.read_csv('census.csv')
@@ -180,11 +180,22 @@ answer_six()
 # 
 # *This function should return a single string value.*
 
-# In[10]:
+# In[54]:
 
 
 def answer_seven():
-    return "YOUR ANSWER HERE"
+    counties_df = census_df[census_df['SUMLEV'] == 50].set_index('CTYNAME')
+    counties_df['MINPOP']=counties_df[['POPESTIMATE2010','POPESTIMATE2010','POPESTIMATE2012',
+          'POPESTIMATE2013','POPESTIMATE2014','POPESTIMATE2015']].min(axis=1)
+
+    counties_df['MAXPOP']=counties_df[['POPESTIMATE2010','POPESTIMATE2010','POPESTIMATE2012',
+          'POPESTIMATE2013','POPESTIMATE2014','POPESTIMATE2015']].max(axis=1)
+
+
+    return (counties_df['MAXPOP']-counties_df['MINPOP']).idxmax()
+
+
+answer_seven()
 
 
 # ### Question 8
@@ -194,9 +205,22 @@ def answer_seven():
 # 
 # *This function should return a 5x2 DataFrame with the columns = ['STNAME', 'CTYNAME'] and the same index ID as the census_df (sorted ascending by index).*
 
-# In[11]:
+# In[9]:
 
 
 def answer_eight():
-    return "YOUR ANSWER HERE"
+    q8_df=census_df[((census_df['REGION']==1) | (census_df['REGION']==2)) & 
+           (census_df['CTYNAME'].str.startswith('Washington')) &
+           (census_df['POPESTIMATE2015']> census_df['POPESTIMATE2014']) ]
+    return q8_df[['STNAME','CTYNAME']]
+
+
+answer_eight()
+
+
+# In[6]:
+
+
+census_df[(census_df['CTYNAME'].str.startswith('Washington'))]
+census_df['CTYNAME']
 
